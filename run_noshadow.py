@@ -1,5 +1,5 @@
 #!/usr/bin/env -S python3 -B
-
+from sys import argv
 from time import time
 from common.tk_drawer import TkDrawer
 from noshadow.polyedr import Polyedr
@@ -7,7 +7,7 @@ from noshadow.polyedr import Polyedr
 
 tk = TkDrawer()
 try:
-    for name in ["ccc", "cube", "box", "king", "cow"]:
+    for name in argv[1:]:
         print("=============================================================")
         print(f"Начало работы с полиэдром '{name}'")
         start_time = time()
