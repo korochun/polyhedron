@@ -167,3 +167,4 @@ class Polyedr:
                 e.shadow(f)
             for s in e.gaps:
                 tk.draw_line(e.r3(s.beg), e.r3(s.fin))
+        tk.update()

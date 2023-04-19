@@ -1,4 +1,5 @@
-from tkinter import *
+import tkinter as tk
+from common.r3 import R3
 
 # Размер окна
 SIZE = 900
@@ -16,36 +17,44 @@ def y(p):
     return SIZE / 2 - SCALE * p.y
 
 
-class TkDrawer:
+class TkDrawer(tk.Tk):
     """ Графический интерфейс """
 
     # Конструктор
     def __init__(self):
-        self.root = Tk()
-        self.root.title("Изображение проекции полиэдра")
-        self.root.geometry(f"{SIZE+5}x{SIZE+5}")
-        self.root.resizable(False, False)
-        self.root.bind('<Control-c>', quit)
-        self.canvas = Canvas(self.root, width=SIZE, height=SIZE)
-        self.canvas.pack(padx=5, pady=5)
+        self.lines = []
 
-    # Завершение работы
-    def close(self):
-        self.root.quit()
+        super().__init__()
+        self.title("Изображение проекции полиэдра")
+        self.geometry(f"{SIZE+5}x{SIZE+5}")
+
+        self.bind('<Control-c>', quit)
+
+        self.canvas = tk.Canvas(width=SIZE, height=SIZE)
+        self.canvas.pack(padx=5, pady=5)
+        self.canvas.create_rectangle(0, 0, SIZE, SIZE, fill="white")
+
+        self.update()
+        self.resizable(False, False)
 
     # Стирание существующей картинки
     def clean(self):
-        self.canvas.create_rectangle(0, 0, SIZE, SIZE, fill="white")
-        self.root.update()
+        for line in self.lines:
+            self.canvas.delete(line[0])
+        self.update()
+    
+    close = tk.Tk.quit
 
     # Рисование линии
     def draw_line(self, p, q):
-        self.canvas.create_line(x(p), y(p), x(q), y(q), fill="black", width=1)
-        self.root.update()
+        self.lines.append([
+            self.canvas.create_line(x(p), y(p), x(q), y(q),
+                                    fill="black", width=3),
+            p, q,
+        ])
 
 
 if __name__ == "__main__":
-
     import time
     from r3 import R3
     tk = TkDrawer()
