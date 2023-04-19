@@ -1,4 +1,4 @@
-from math import sin, cos
+from math import sqrt, sin, cos
 
 
 class R3:
@@ -41,6 +41,9 @@ class R3:
             self.y * other.z - self.z * other.y,
             self.z * other.x - self.x * other.z,
             self.x * other.y - self.y * other.x)
+
+    def length(self):
+        return sqrt(self.dot(self))
 
 
 if __name__ == "__main__":

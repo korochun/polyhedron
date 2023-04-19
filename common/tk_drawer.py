@@ -42,7 +42,7 @@ class TkDrawer(tk.Tk):
         for line in self.lines:
             self.canvas.delete(line[0])
         self.update()
-    
+
     close = tk.Tk.quit
 
     # Рисование линии
