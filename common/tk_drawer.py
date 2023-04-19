@@ -61,7 +61,7 @@ class TkDrawer(tk.Tk):
     # Стирание существующей картинки
     def clean(self):
         for line in self.lines:
-            self.canvas.delete(line[2])
+            self.canvas.delete(line[0])
         self.update()
     
     close = tk.Tk.quit
