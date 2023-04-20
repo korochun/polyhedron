@@ -167,23 +167,23 @@ class Polyedr:
     def draw(self, tk=None):
         if tk: tk.clean()
         area = 0
-        norm = Polyedr.V * (1 / self.scale / self.scale)
+        norm = Polyedr.V * (0.5 / self.scale / self.scale)
         for f in self.faces:
             full = True
             for e in f.edges:
-                for f in self.faces:
-                    e.shadow(f)
+                for f1 in self.faces:
+                    e.shadow(f1)
                     full = full and e.is_full()
                 if tk:
                     for s in e.gaps:
                         tk.draw_line(e.r3(s.start), e.r3(s.end))
             if full:
                 center = f.center()
-                if abs(center.x) > 1 or abs(center.y) > 1 \
-                        or abs(center.z) > 1:
+                if abs(center.x) > self.scale or abs(center.y) > self.scale \
+                        or abs(center.z) > self.scale:
                     for i in range(1, len(f.vertices) - 1):
                         area += abs((f.vertices[i] - f.vertices[0]) \
                             .cross(f.vertices[i + 1] - f.vertices[0]) \
-                            .dot(norm) / 2)
+                            .dot(norm))
         if tk: tk.update()
         return area
