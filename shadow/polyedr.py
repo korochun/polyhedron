@@ -166,8 +166,8 @@ class Polyedr:
     # Метод изображения полиэдра
     def draw(self, tk=None):
         if tk: tk.clean()
-        area = 0
-        norm = Polyedr.V * (0.5 / self.scale / self.scale)
+        area = 0.0
+        norm = Polyedr.V * (1 / self.scale / self.scale)
         for f in self.faces:
             full = True
             for e in f.edges:
@@ -182,8 +182,8 @@ class Polyedr:
                 if abs(center.x) > self.scale or abs(center.y) > self.scale \
                         or abs(center.z) > self.scale:
                     for i in range(1, len(f.vertices) - 1):
-                        area += abs((f.vertices[i] - f.vertices[0]) \
-                            .cross(f.vertices[i + 1] - f.vertices[0]) \
-                            .dot(norm))
+                        s1 = f.vertices[i] - f.vertices[0]
+                        s2 = f.vertices[i + 1] - f.vertices[0]
+                        area += abs(s1.cross(s2).dot(norm)) / 2
         if tk: tk.update()
         return area
