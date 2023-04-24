@@ -167,6 +167,7 @@ class Polyedr:
     def draw(self, tk=None):
         if tk: tk.clean()
         area = 0.0
+        scale2 = self.scale / 2
         norm = Polyedr.V * (1 / self.scale / self.scale)
         for f in self.faces:
             full = True
@@ -179,8 +180,8 @@ class Polyedr:
                         tk.draw_line(e.r3(s.start), e.r3(s.end))
             if full:
                 center = f.center()
-                if abs(center.x) > self.scale or abs(center.y) > self.scale \
-                        or abs(center.z) > self.scale:
+                if abs(center.x) > scale2 or abs(center.y) > scale2 \
+                        or abs(center.z) > scale2:
                     for i in range(1, len(f.vertices) - 1):
                         s1 = f.vertices[i] - f.vertices[0]
                         s2 = f.vertices[i + 1] - f.vertices[0]
